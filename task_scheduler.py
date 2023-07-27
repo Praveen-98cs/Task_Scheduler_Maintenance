@@ -39,16 +39,37 @@ class TaskManager:
                 task = Task(name, description, due_date, priority, status, assignee)
                 self.tasks.append(task)
 
+def print_toolbox():
+    toolbox_ascii = """
+        ________
+     __|_______|__
+   _|____________|__
+  |o o o o o o o o o|
+  |o   TOOLBOX   o|
+  |o o o o o o o o o|
+   |______________|
+    """
+
+    print(toolbox_ascii)
+
+# Call the function to display the ASCII art
+print_toolbox()
+
+import colorama
+
+# Initialize colorama to enable colored output on Windows
+colorama.init()
 
 def print_menu():
-    print("\n===== Task Scheduler Menu =====")
-    print("1. Create Task")
+    print("\n" + colorama.Fore.CYAN + "=" * 28 + " Task Scheduler Menu " + "=" * 28 + colorama.Fore.RESET)
+    print(colorama.Fore.YELLOW + "1. Create Task")
     print("2. Assign Task")
     print("3. Complete Task")
     print("4. View All Tasks")
     print("5. Save Tasks to File")
     print("6. Load Tasks from File")
-    print("0. Exit")
+    print("0. Exit" + colorama.Fore.RESET)
+
 
 
 def get_user_input(prompt):
