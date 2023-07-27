@@ -40,6 +40,7 @@ class TaskManager:
 
 def print_menu():
     print("\n===== Task Scheduler Menu =====")
+    print("\n===== Created by Praveen CS/2017/017 =====")
     print("1. Create Task")
     print("2. Assign Task")
     print("3. Complete Task")
@@ -66,6 +67,7 @@ def main():
 
             task = Task(name, description, due_date, priority)
             task_manager.create_task(task)
+            print("Task created successfully.")
 
         elif choice == "2":
             if not task_manager.tasks:
@@ -79,6 +81,7 @@ def main():
             assignee = get_user_input("Enter the name of the assignee: ")
 
             task_manager.assign_task(task_index, assignee)
+            print("Task assigned successfully.")
 
         elif choice == "3":
             if not task_manager.tasks:
@@ -91,12 +94,14 @@ def main():
 
             task_index = int(get_user_input("Enter the index of the completed task: "))
             task_manager.complete_task(task_index)
+            print("Task completed successfully.")
 
         elif choice == "4":
             if not task_manager.tasks:
                 print("No tasks available.")
                 continue
 
+            print("\n===== All Tasks =====")
             for task in task_manager.tasks:
                 print(
                     f"{task.name} - {task.description} - Due: {task.due_date} - Priority: {task.priority} - Status: {task.status}"
@@ -120,3 +125,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
