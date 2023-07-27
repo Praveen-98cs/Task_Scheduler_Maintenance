@@ -1,12 +1,12 @@
 class Task:
-    def __init__(self, name, description, due_date, priority, status="Pending"):
+    def __init__(self, name, description, due_date, priority, status="Pending", assignee=None):
         self.name = name
         self.description = description
         self.due_date = due_date
         self.priority = priority
         self.status = status
+        self.assignee = assignee
 
-import os
 
 class TaskManager:
     def __init__(self):
@@ -26,21 +26,22 @@ class TaskManager:
         with open(filename, "w") as file:
             for task in self.tasks:
                 file.write(
-                    f"{task.name},{task.description},{task.due_date},{task.priority},{task.status}\n"
+                    f"{task.name},{task.description},{task.due_date},{task.priority},{task.status},{task.assignee}\n"
                 )
 
     def load_tasks_from_file(self, filename):
-        if os.path.exists(filename):
-            with open(filename, "r") as file:
-                for line in file:
-                    name, description, due_date, priority, status = line.strip().split(",")
-                    task = Task(name, description, due_date, priority, status)
-                    self.tasks.append(task)
+        if not os.path.exists(filename):
+            return
+
+        with open(filename, "r") as file:
+            for line in file:
+                name, description, due_date, priority, status, assignee = line.strip().split(",")
+                task = Task(name, description, due_date, priority, status, assignee)
+                self.tasks.append(task)
 
 
 def print_menu():
     print("\n===== Task Scheduler Menu =====")
-    print("\n===== Created by Praveen CS/2017/017 =====")
     print("1. Create Task")
     print("2. Assign Task")
     print("3. Complete Task")
@@ -49,8 +50,10 @@ def print_menu():
     print("6. Load Tasks from File")
     print("0. Exit")
 
+
 def get_user_input(prompt):
     return input(prompt).strip()
+
 
 def main():
     task_manager = TaskManager()
@@ -123,6 +126,7 @@ def main():
         else:
             print("Invalid choice. Please try again.")
 
+        input("Press Enter to go back to the main menu.")
+
 if __name__ == "__main__":
     main()
-
