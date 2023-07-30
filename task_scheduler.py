@@ -161,26 +161,29 @@ def main():
             press_enter_to_continue()
 
         elif choice == "3":
-            if not task_manager.tasks:
-                print("No tasks available.")
+            if not task_manager.tasks or not any(task.status == "Assigned" for task in task_manager.tasks):
+                print("No task is assigned.")
+                press_enter_to_continue()
                 continue
 
             for i, task in enumerate(task_manager.tasks):
                 if task.status == "Assigned":
-                    print(f"{i}. {task.name}")
+                    print(f"{i}. Name: {task.name} - Description: {task.description} - Due: {task.due_date} - Priority: {task.priority}")
 
             while True:
                 try:
                     task_index = int(get_user_input("Enter the index of the completed task: "))
-                    task_manager.complete_task(task_index)
-                    print("Task completed successfully.")
-                    task_manager.save_tasks_to_file()  # Automatically save tasks after completion
-                    break  # Exit the loop if task completion is successful
+                    if task_manager.tasks[task_index].status == "Assigned":
+                        task_manager.complete_task(task_index)
+                        print("Task completed successfully.")
+                        task_manager.save_tasks_to_file()  # Automatically save tasks after completion
+                        break  # Exit the loop if task completion is successful
+                    else:
+                        print("You can only complete an assigned task. Please enter a valid task index.")
                 except ValueError:
                     print("Invalid value. Please enter a valid task index.")
                 except IndexError:
                     print("Invalid task index. Please enter a valid task index.")
-
             press_enter_to_continue()
 
         elif choice == "4":
@@ -202,7 +205,7 @@ def main():
                 continue
 
             for i, task in enumerate(task_manager.tasks):
-                print(f"{i}. {task.name}")
+                print(f"{i}. Name: {task.name} - Description: {task.description} - Due: {task.due_date} - Priority: {task.priority}")
 
             while True:
                 try:
@@ -223,6 +226,7 @@ def main():
             print("Invalid choice. Please try again.")
 
     print("Thank you for using the Task Scheduler!")
+ 
 
 if __name__ == "__main__":
     main()
