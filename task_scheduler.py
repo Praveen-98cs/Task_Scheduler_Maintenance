@@ -60,23 +60,23 @@ def print_menu():
     menu_heading = " Task Scheduler Menu "
     heading_padding = (menu_width - len(menu_heading)) // 2
 
-    print("\n" + colorama.Fore.CYAN + menu_border + colorama.Fore.RESET)
-    print(colorama.Fore.CYAN + "=" * heading_padding + menu_heading + "=" * heading_padding + colorama.Fore.RESET)
-    
-    print(colorama.Fore.YELLOW + "1. Create Task")
+    print("\n" + colorama.Style.BRIGHT + colorama.Fore.BLUE + menu_border + colorama.Style.RESET_ALL)
+    print(colorama.Style.BRIGHT + colorama.Fore.BLUE + "=" * heading_padding + menu_heading + "=" * heading_padding + colorama.Style.RESET_ALL)
+    print("")
+    print(colorama.Style.BRIGHT + colorama.Fore.YELLOW + "1. Create Task")
     print("2. Assign Task")
     print("3. Complete Task")
     print("4. View All Tasks")
     print("5. Delete Task")
-    print("0. Exit" + colorama.Fore.RESET)
-    print(colorama.Fore.CYAN + menu_border + colorama.Fore.RESET)
+    print("0. Exit" + colorama.Style.RESET_ALL)
+    print("\n" + colorama.Style.BRIGHT + colorama.Fore.BLUE + menu_border + colorama.Style.RESET_ALL)
 
 def get_user_input(prompt):
     while True:
         try:
             return input(prompt).strip()
         except KeyboardInterrupt:
-            print("Input interrupted. Please try again.")
+            raise  # Re-raise the exception to terminate the code
         except Exception as e:
             print("Invalid value. Please try again.")
 
@@ -142,7 +142,7 @@ def main():
                 continue
 
             for i, task in enumerate(task_manager.tasks):
-                print(f"{i}. {task.name} - {task.status}")
+                print(f"{i}. {task.name} - {task.status} | Priority: {task.priority} - Description: {task.description} - Due: {task.due_date}")
 
             while True:
                 try:
@@ -161,14 +161,18 @@ def main():
             press_enter_to_continue()
 
         elif choice == "3":
-            if not task_manager.tasks or not any(task.status == "Assigned" for task in task_manager.tasks):
-                print("No task is assigned.")
-                press_enter_to_continue()
+            if not task_manager.tasks:
+                print("No tasks available.")
+                continue
+
+            assigned_tasks = [task for task in task_manager.tasks if task.status == "Assigned"]
+            if not assigned_tasks:
+                print("No task is assigned. Cannot mark as completed.")
                 continue
 
             for i, task in enumerate(task_manager.tasks):
                 if task.status == "Assigned":
-                    print(f"{i}. Name: {task.name} - Description: {task.description} - Due: {task.due_date} - Priority: {task.priority}")
+                    print(f"{task.name} - {task.description} - Due: {task.due_date} - Priority: {task.priority} - Status: {task.status}")
 
             while True:
                 try:
@@ -205,7 +209,7 @@ def main():
                 continue
 
             for i, task in enumerate(task_manager.tasks):
-                print(f"{i}. Name: {task.name} - Description: {task.description} - Due: {task.due_date} - Priority: {task.priority}")
+                print(f"{task.name} - {task.description} - Due: {task.due_date} - Priority: {task.priority} - Status: {task.status}")
 
             while True:
                 try:
