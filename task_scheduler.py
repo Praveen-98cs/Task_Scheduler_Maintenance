@@ -55,13 +55,21 @@ class TaskManager:
                 self.tasks.append(task)
 
 def print_menu():
-    print("\n" + colorama.Fore.CYAN + "=" * 28 + " Task Scheduler Menu " + "=" * 28 + colorama.Fore.RESET)
+    menu_width = 64
+    menu_border = "=" * menu_width
+    menu_heading = " Task Scheduler Menu "
+    heading_padding = (menu_width - len(menu_heading)) // 2
+
+    print("\n" + colorama.Fore.CYAN + menu_border + colorama.Fore.RESET)
+    print(colorama.Fore.CYAN + "=" * heading_padding + menu_heading + "=" * heading_padding + colorama.Fore.RESET)
+    
     print(colorama.Fore.YELLOW + "1. Create Task")
     print("2. Assign Task")
     print("3. Complete Task")
     print("4. View All Tasks")
     print("5. Delete Task")
     print("0. Exit" + colorama.Fore.RESET)
+    print(colorama.Fore.CYAN + menu_border + colorama.Fore.RESET)
 
 def get_user_input(prompt):
     while True:
