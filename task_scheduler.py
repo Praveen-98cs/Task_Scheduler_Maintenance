@@ -1,13 +1,13 @@
 class Task:
-    def __init__(self, name, description, due_date, priority, status="Pending"):
+    def __init__(self, name, description, due_date, priority, status="Pending", assignee=None):
         self.name = name
         self.description = description
         self.due_date = due_date
         self.priority = priority
         self.status = status
+        self.assignee = assignee
 
 import os
-
 class TaskManager:
     def __init__(self):
         self.tasks = []
@@ -26,30 +26,55 @@ class TaskManager:
         with open(filename, "w") as file:
             for task in self.tasks:
                 file.write(
-                    f"{task.name},{task.description},{task.due_date},{task.priority},{task.status}\n"
+                    f"{task.name},{task.description},{task.due_date},{task.priority},{task.status},{task.assignee}\n"
                 )
 
     def load_tasks_from_file(self, filename):
-        if os.path.exists(filename):
-            with open(filename, "r") as file:
-                for line in file:
-                    name, description, due_date, priority, status = line.strip().split(",")
-                    task = Task(name, description, due_date, priority, status)
-                    self.tasks.append(task)
+        if not os.path.exists(filename):
+            return
 
+        with open(filename, "r") as file:
+            for line in file:
+                name, description, due_date, priority, status, assignee = line.strip().split(",")
+                task = Task(name, description, due_date, priority, status, assignee)
+                self.tasks.append(task)
+
+def print_toolbox():
+    toolbox_ascii = """
+        ________
+     __|_______|__
+   _|____________|__
+  |o o o o o o o o o|
+  |o   TOOLBOX   o|
+  |o o o o o o o o o|
+   |______________|
+    """
+
+    print(toolbox_ascii)
+
+# Call the function to display the ASCII art
+print_toolbox()
+
+import colorama
+
+# Initialize colorama to enable colored output on Windows
+colorama.init()
 
 def print_menu():
-    print("\n===== Task Scheduler Menu =====")
-    print("1. Create Task")
+    print("\n" + colorama.Fore.CYAN + "=" * 28 + " Task Scheduler Menu " + "=" * 28 + colorama.Fore.RESET)
+    print(colorama.Fore.YELLOW + "1. Create Task")
     print("2. Assign Task")
     print("3. Complete Task")
     print("4. View All Tasks")
     print("5. Save Tasks to File")
     print("6. Load Tasks from File")
-    print("0. Exit")
+    print("0. Exit" + colorama.Fore.RESET)
+
+
 
 def get_user_input(prompt):
     return input(prompt).strip()
+
 
 def main():
     task_manager = TaskManager()
@@ -66,6 +91,7 @@ def main():
 
             task = Task(name, description, due_date, priority)
             task_manager.create_task(task)
+            print("Task created successfully.")
 
         elif choice == "2":
             if not task_manager.tasks:
@@ -79,6 +105,7 @@ def main():
             assignee = get_user_input("Enter the name of the assignee: ")
 
             task_manager.assign_task(task_index, assignee)
+            print("Task assigned successfully.")
 
         elif choice == "3":
             if not task_manager.tasks:
@@ -91,12 +118,14 @@ def main():
 
             task_index = int(get_user_input("Enter the index of the completed task: "))
             task_manager.complete_task(task_index)
+            print("Task completed successfully.")
 
         elif choice == "4":
             if not task_manager.tasks:
                 print("No tasks available.")
                 continue
 
+            print("\n===== All Tasks =====")
             for task in task_manager.tasks:
                 print(
                     f"{task.name} - {task.description} - Due: {task.due_date} - Priority: {task.priority} - Status: {task.status}"
@@ -117,6 +146,8 @@ def main():
 
         else:
             print("Invalid choice. Please try again.")
+
+        input("Press Enter to go back to the main menu.")
 
 if __name__ == "__main__":
     main()
