@@ -1,3 +1,5 @@
+import colorama
+
 class Task:
     def __init__(self, name, description, due_date, priority, status="Pending", assignee=None):
         self.name = name
@@ -8,6 +10,7 @@ class Task:
         self.assignee = assignee
 
 import os
+
 class TaskManager:
     def __init__(self):
         self.tasks = []
@@ -22,49 +25,57 @@ class TaskManager:
     def complete_task(self, task_index):
         self.tasks[task_index].status = "Completed"
 
-    def save_tasks_to_file(self, filename):
-        with open(filename, "w") as file:
+    def save_tasks_to_file(self):
+        with open("task_scheduler.txt", "w") as file:
             for task in self.tasks:
                 file.write(
                     f"{task.name},{task.description},{task.due_date},{task.priority},{task.status},{task.assignee}\n"
                 )
 
-    def load_tasks_from_file(self, filename):
-        if not os.path.exists(filename):
+    def load_tasks_from_file(self):
+        if not os.path.exists("task_scheduler.txt"):
             return
 
-        with open(filename, "r") as file:
+        with open("task_scheduler.txt", "r") as file:
             for line in file:
                 name, description, due_date, priority, status, assignee = line.strip().split(",")
                 task = Task(name, description, due_date, priority, status, assignee)
                 self.tasks.append(task)
 
-
-
-
-import colorama
-
-# Initialize colorama to enable colored output on Windows
-colorama.init()
-
 def print_menu():
-    print("\n" + colorama.Fore.CYAN + "=" * 28 + " Task Scheduler Menu " + "=" * 28 + colorama.Fore.RESET)
-    print(colorama.Fore.YELLOW + "1. Create Task")
-    print("2. Assign Task")
-    print("3. Complete Task")
-    print("4. View All Tasks")
-    print("5. Save Tasks to File")
-    print("6. Load Tasks from File")
-    print("0. Exit" + colorama.Fore.RESET)
+    heading = "Task Scheduler Menu"
+    menu_options = [
+        "1. Create Task",
+        "2. Assign Task",
+        "3. Complete Task",
+        "4. View All Tasks",
+        "0. Exit",
+    ]
 
+    # Determine the width of the box
+    box_width = max(len(heading), max(len(option) for option in menu_options)) + 4
 
+    # Print the heading box
+    print(colorama.Fore.CYAN + "=" * box_width)
+    print(" " * ((box_width - len(heading)) // 2) + heading)
+    print("=" * box_width + colorama.Fore.RESET)
+
+    # Print the menu options
+    for option in menu_options:
+        print(colorama.Fore.YELLOW + "|" + colorama.Fore.RESET, option, " " * (box_width - len(option) - 3), colorama.Fore.YELLOW + "|" + colorama.Fore.RESET)
+
+    # Print the bottom border of the box
+    print(colorama.Fore.CYAN + "=" * box_width + colorama.Fore.RESET)
 
 def get_user_input(prompt):
     return input(prompt).strip()
 
-
 def main():
+    # Initialize colorama to enable colored output on Windows
+    colorama.init()
+
     task_manager = TaskManager()
+    task_manager.load_tasks_from_file()
 
     while True:
         print_menu()
@@ -118,23 +129,12 @@ def main():
                     f"{task.name} - {task.description} - Due: {task.due_date} - Priority: {task.priority} - Status: {task.status}"
                 )
 
-        elif choice == "5":
-            filename = get_user_input("Enter the filename to save tasks (e.g., tasks.txt): ")
-            task_manager.save_tasks_to_file(filename)
-            print("Tasks saved successfully.")
-
-        elif choice == "6":
-            filename = get_user_input("Enter the filename to load tasks from (e.g., tasks.txt): ")
-            task_manager.load_tasks_from_file(filename)
-            print("Tasks loaded successfully.")
-
         elif choice == "0":
+            task_manager.save_tasks_to_file()
             break
 
         else:
             print("Invalid choice. Please try again.")
-
-        input("Press Enter to go back to the main menu.")
 
 if __name__ == "__main__":
     main()
