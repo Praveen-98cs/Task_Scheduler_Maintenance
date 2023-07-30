@@ -39,21 +39,8 @@ class TaskManager:
                 task = Task(name, description, due_date, priority, status, assignee)
                 self.tasks.append(task)
 
-def print_toolbox():
-    toolbox_ascii = """
-        ________
-     __|_______|__
-   _|____________|__
-  |o o o o o o o o o|
-  |o   TOOLBOX   o|
-  |o o o o o o o o o|
-   |______________|
-    """
 
-    print(toolbox_ascii)
 
-# Call the function to display the ASCII art
-print_toolbox()
 
 import colorama
 
