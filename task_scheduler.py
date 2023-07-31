@@ -1,6 +1,7 @@
 import os
 import colorama
 import re
+from tabulate import tabulate
 
 class Task:
     def __init__(self, name, description, due_date, priority, status="Pending", assignee=None):
@@ -82,7 +83,7 @@ def get_user_input(prompt):
 
 def is_valid_date(date):
     # Check if the date is in the format YYYY-MM-DD
-    date_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+    date_pattern = re.compile(r"^\d{4}-\d{1,2}-\d{1,2}$")
     if not date_pattern.match(date):
         return False
 
@@ -141,22 +142,29 @@ def main():
                 print("No tasks available. Create tasks first.")
                 continue
 
+            table = []
             for i, task in enumerate(task_manager.tasks):
-                print(f"{i}. {task.name} - {task.status} | Priority: {task.priority} - Description: {task.description} - Due: {task.due_date}")
+                table.append([i + 1, task.name, task.description, task.due_date, task.priority, task.status, task.assignee])
+
+            headers = ["#", "Task Name", "Description", "Due Date", "Priority", "Status", "Assignee"]
+            print(tabulate(table, headers, tablefmt="fancy_grid"))
 
             while True:
                 try:
-                    task_index = int(get_user_input("Enter the index of the task to assign: "))
-                    assignee = get_user_input("Enter the name of the assignee: ")
+                    task_index = int(get_user_input("Enter the number of the task to assign: ")) - 1
+                    if task_manager.tasks[task_index].status == "Assigned":
+                        new_assignee = get_user_input("Change the name of the assignee: ")
+                    else:
+                        new_assignee = get_user_input("Enter the name of the assignee: ")
 
-                    task_manager.assign_task(task_index, assignee)
+                    task_manager.assign_task(task_index, new_assignee)
                     print("Task assigned successfully.")
                     task_manager.save_tasks_to_file()  # Automatically save tasks after assignment
                     break  # Exit the loop if task assignment is successful
                 except ValueError:
-                    print("Invalid value. Please enter a valid task index.")
+                    print("Invalid value. Please enter a valid task number.")
                 except IndexError:
-                    print("Invalid task index. Please enter a valid task index.")
+                    print("Invalid task number. Please enter a valid task number.")
 
             press_enter_to_continue()
 
@@ -170,24 +178,28 @@ def main():
                 print("No task is assigned. Cannot mark as completed.")
                 continue
 
+            table = []
             for i, task in enumerate(task_manager.tasks):
                 if task.status == "Assigned":
-                    print(f"{task.name} - {task.description} - Due: {task.due_date} - Priority: {task.priority} - Status: {task.status}")
+                    table.append([i + 1, task.name, task.description, task.due_date, task.priority, task.status, task.assignee])
+
+            headers = ["#", "Task Name", "Description", "Due Date", "Priority", "Status", "Assignee"]
+            print(tabulate(table, headers, tablefmt="fancy_grid"))
 
             while True:
                 try:
-                    task_index = int(get_user_input("Enter the index of the completed task: "))
+                    task_index = int(get_user_input("Enter the number of the completed task: ")) - 1
                     if task_manager.tasks[task_index].status == "Assigned":
                         task_manager.complete_task(task_index)
                         print("Task completed successfully.")
                         task_manager.save_tasks_to_file()  # Automatically save tasks after completion
                         break  # Exit the loop if task completion is successful
                     else:
-                        print("You can only complete an assigned task. Please enter a valid task index.")
+                        print("You can only complete an assigned task. Please enter a valid task number.")
                 except ValueError:
-                    print("Invalid value. Please enter a valid task index.")
+                    print("Invalid value. Please enter a valid task number.")
                 except IndexError:
-                    print("Invalid task index. Please enter a valid task index.")
+                    print("Invalid task number. Please enter a valid task number.")
             press_enter_to_continue()
 
         elif choice == "4":
@@ -195,11 +207,12 @@ def main():
                 print("No tasks available.")
                 continue
 
-            print("\n===== All Tasks =====")
-            for task in task_manager.tasks:
-                print(
-                    f"{task.name} - {task.description} - Due: {task.due_date} - Priority: {task.priority} - Status: {task.status}"
-                )
+            table = []
+            for i, task in enumerate(task_manager.tasks):
+                table.append([i + 1, task.name, task.description, task.due_date, task.priority, task.status, task.assignee])
+
+            headers = ["#", "Task Name", "Description", "Due Date", "Priority", "Status", "Assignee"]
+            print(tabulate(table, headers, tablefmt="fancy_grid"))
 
             press_enter_to_continue()
 
@@ -208,18 +221,22 @@ def main():
                 print("No tasks available.")
                 continue
 
+            table = []
             for i, task in enumerate(task_manager.tasks):
-                print(f"{task.name} - {task.description} - Due: {task.due_date} - Priority: {task.priority} - Status: {task.status}")
+                table.append([i + 1, task.name, task.description, task.due_date, task.priority, task.status, task.assignee])
+
+            headers = ["#", "Task Name", "Description", "Due Date", "Priority", "Status", "Assignee"]
+            print(tabulate(table, headers, tablefmt="fancy_grid"))
 
             while True:
                 try:
-                   task_index = int(get_user_input("Enter the index of the task to delete: "))
-                   task_manager.delete_task(task_index)
-                   break  # Exit the loop if task deletion is successful
+                    task_index = int(get_user_input("Enter the number of the task to delete: ")) - 1
+                    task_manager.delete_task(task_index)
+                    break  # Exit the loop if task deletion is successful
                 except ValueError:
-                   print("Invalid value. Please enter a valid task index.")
+                    print("Invalid value. Please enter a valid task number.")
                 except IndexError:
-                   print("Invalid task index. Please enter a valid task index.")
+                    print("Invalid task number. Please enter a valid task number.")
             press_enter_to_continue()
 
         elif choice == "0":
@@ -230,7 +247,6 @@ def main():
             print("Invalid choice. Please try again.")
 
     print("Thank you for using the Task Scheduler!")
- 
 
 if __name__ == "__main__":
     main()
