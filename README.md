@@ -144,7 +144,7 @@ Select "Exit" from the main menu to save all tasks to the file and exit the prog
 
 ## Troubleshooting
 
-If you encounter any issues or have questions about the Task Scheduler System, please feel free to reach out to the developer at [your-email@example.com].
+If you encounter any issues or have questions about the Task Scheduler System, please feel free to reach out to the developer at [1praveenbhawantha@gmail.com].
 
 ## License
 
@@ -152,6 +152,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-Replace `1praveenbhawantha@gmail.com]` in the README file with your email address. Additionally, update any other placeholder text as needed to match your project.
+
 
 Please note that the images mentioned in the "Usage" section are not included in the README file template. You can add screenshots or images to the README file to make it more visually appealing and informative. Save the README file as `README.md` in the same directory as your Python script (`task_scheduler.py`). You can use any text editor or Markdown editor to create and edit the README file.
