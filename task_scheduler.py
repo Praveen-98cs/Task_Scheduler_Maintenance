@@ -206,7 +206,8 @@ def main():
             if not task_manager.tasks:
                 print("No tasks available.")
                 continue
-
+            print("\n" + "=" * 30 + " All Tasks " + "=" * 30)
+            print("")
             table = []
             for i, task in enumerate(task_manager.tasks):
                 table.append([i + 1, task.name, task.description, task.due_date, task.priority, task.status, task.assignee])
