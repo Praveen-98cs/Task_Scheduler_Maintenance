@@ -1,74 +1,157 @@
-# Task_Scheduler_Maintenance
-This a simple python Task Scheduler created for an assignment given in the university under the course module, Enterprise Application Development 
-Task Scheduler
-The Task Scheduler is a simple command-line program that allows you to create, assign, complete, and delete tasks. It provides a user-friendly interface for managing your tasks efficiently.
+# Task Scheduler System
+
+## Introduction
+
+The Task Scheduler System is a simple command-line program that helps you manage your tasks efficiently. It allows you to create, assign, complete, and delete tasks with ease. This system provides a user-friendly interface to keep track of your tasks and their statuses.
+
+## Features
+
+- Create tasks with a name, description, due date, and priority.
+- Assign tasks to specific individuals.
+- Mark tasks as completed once they are finished.
+- View all tasks in a tabular format.
+- Delete tasks that are no longer needed.
 
 ## Prerequisites
-Before running the Task Scheduler, make sure you have the following installed on your system:
-Python 3.x
+
+Before running the Task Scheduler System, ensure that you have the following installed on your system:
+
+- Python 3.x
+
+Required libraries:
+
+- colorama
 
 ## Getting Started
-Clone the repository or download the source code.
 
-Navigate to the project directory in your terminal.
+1. Extract the contents of the provided ZIP folder to your desired location on your computer.
 
-Install the required dependencies by running the following command:
+2. Open a terminal or command prompt and navigate to the directory where the extracted files are located.
 
-pip install colorama
+3. Install the required dependency by running the following command:
+
+   ```
+   pip install colorama
+   ```
 
 ## How to Use
-Run the program by executing the following command:
-Copy code
-python task_scheduler.py
-Main Menu Options:
 
-#### Create Task:
-Allows you to create a new task by providing the task name, description, due date, and priority.
+1. Open a terminal or command prompt in the directory where the files are located.
 
-#### Assign Task:
-Lists all tasks and their current status. Enter the index of the task you want to assign and provide the name of the assignee.
+2. To run the Task Scheduler System, use the following command:
 
-#### Complete Task: 
-Lists all assigned tasks. Enter the index of the task you have completed.
+   ```
+   python task_scheduler.py
+   ```
 
-#### View All Tasks:
-Displays a table of all tasks with their details, including name, description, due date, priority, status, and assignee (if assigned).
+3. The main menu will be displayed with various options:
 
-#### Delete Task:
-Lists all tasks and their details in a table. Enter the index of the task you want to delete.
+   - **Create Task:** Enter task details such as name, description, due date (YYYY-MM-DD), and priority (High/Medium/Low).
 
-#### Exit: Save
-all tasks to the file and exit the program.
+   - **Assign Task:** Assign a task to a specific individual. You can choose from the list of tasks and provide the assignee's name.
 
-### Date Format:
+   - **Complete Task:** Mark a task as completed. You can select the completed task from the list.
 
-When creating a task, enter the due date in the format YYYY-MM-DD. For example, 2023-12-31.
+   - **View All Tasks:** Display a table with all tasks and their details, including name, description, due date, priority, status, and assignee (if assigned).
 
-## Priority:
+   - **Delete Task:** Delete a task from the list. You can select the task to be deleted from the table.
 
-When creating a task, specify the priority as one of High, Medium, or Low. The program is case-insensitive.
+   - **Exit:** Save all tasks to the file and exit the program.
 
-## Assigning a Task:
+4. Date Format:
 
-You can only assign tasks that are in the "Assigned" status. If a task is already assigned, you can change the assignee's name.
+   When creating a task, enter the due date in the format `YYYY-MM-DD`. For example, `2023-12-31`.
 
-## Saving and Loading:
+5. Priority:
 
-The tasks are automatically saved to a text file named task_scheduler.txt. When you run the program next time, it will load the tasks from this file.
+   When creating a task, specify the priority as one of `High`, `Medium`, or `Low`. The program is case-insensitive.
 
-## Termination:
+6. Assigning a Task:
 
-To terminate the program, enter 0 in the main menu.
+   You can only assign tasks that are in the "Assigned" status. If a task is already assigned, you can change the assignee's name.
+
+7. Saving and Loading:
+
+   The tasks are automatically saved to a text file named `task_scheduler.txt`. When you run the program next time, it will load the tasks from this file.
+
+## Usage
+
+Here is a step-by-step guide with images to demonstrate how to use each function of the Task Scheduler System:
+
+### Create Task
+
+[Image: Create Task]
+
+1. Select "Create Task" from the main menu.
+
+2. Enter the task name, description, due date, and priority.
+
+3. Press Enter to create the task.
+
+### Assign Task
+
+[Image: Assign Task]
+
+1. Select "Assign Task" from the main menu.
+
+2. View the list of tasks and their current status.
+
+3. Enter the index of the task you want to assign.
+
+4. If the task is unassigned, enter the name of the assignee and press Enter.
+
+5. If the task is already assigned, you can change the assignee's name by entering a new name.
+
+### Complete Task
+
+[Image: Complete Task]
+
+1. Select "Complete Task" from the main menu.
+
+2. View the list of assigned tasks.
+
+3. Enter the index of the task you have completed and press Enter.
+
+### View All Tasks
+
+[Image: View All Tasks]
+
+1. Select "View All Tasks" from the main menu.
+
+2. A table will be displayed with all tasks and their details.
+
+### Delete Task
+
+[Image: Delete Task]
+
+1. Select "Delete Task" from the main menu.
+
+2. View the list of tasks and their details in a table.
+
+3. Enter the index of the task you want to delete and press Enter.
+
+### Exit
+
+Select "Exit" from the main menu to save all tasks to the file and exit the program.
 
 ## Additional Information
-The program uses the Colorama library to display colored output on Windows.
 
-The task details are stored in memory while the program is running. To persist the tasks between sessions, they are saved to the text file.
+- The program uses the Colorama library to display colored output on Windows.
 
-The program checks for valid input for dates and priorities. It will prompt you to re-enter if the input is invalid.
+- The task details are stored in memory while the program is running. To persist the tasks between sessions, they are saved to the text file.
+
+- The program checks for valid input for dates and priorities. It will prompt you to re-enter if the input is invalid.
 
 ## Troubleshooting
-If you encounter any issues or have questions about the Task Scheduler, please feel free to reach out to the developer at [1praveenbhawantha@gmail.com].
+
+If you encounter any issues or have questions about the Task Scheduler System, please feel free to reach out to the developer at [your-email@example.com].
 
 ## License
-This project is licensed under the MIT License.
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+Replace `1praveenbhawantha@gmail.com]` in the README file with your email address. Additionally, update any other placeholder text as needed to match your project.
+
+Please note that the images mentioned in the "Usage" section are not included in the README file template. You can add screenshots or images to the README file to make it more visually appealing and informative. Save the README file as `README.md` in the same directory as your Python script (`task_scheduler.py`). You can use any text editor or Markdown editor to create and edit the README file.
