@@ -104,7 +104,7 @@ Here is a step-by-step guide with images to demonstrate how to use each function
 
 ### Complete Task
 
-[Image: Complete Task]
+
 
 1. Select "Complete Task" from the main menu.
 
@@ -114,7 +114,7 @@ Here is a step-by-step guide with images to demonstrate how to use each function
 
 ### View All Tasks
 
-[Image: View All Tasks]
+
 
 1. Select "View All Tasks" from the main menu.
 
@@ -122,7 +122,7 @@ Here is a step-by-step guide with images to demonstrate how to use each function
 
 ### Delete Task
 
-[Image: Delete Task]
+
 
 1. Select "Delete Task" from the main menu.
 
